@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10110f">
+  <meta name="description" content="经典贪吃蛇，进入第三维度。在霓虹立体棋盘上收集能量，挑战你的反应极限。支持键盘和手机触控。">
+  <title>SNAKE / 3D — 霓虹贪吃蛇</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="SNAKE 3D 首页"><svg class="brand-icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 4h21v7H12v7h14v10H5v-7h14v-3H5z" fill="currentColor"/><rect x="21" y="6" width="2" height="2" fill="#10110f"/></svg><span>SNAKE<span class="brand-slash">/</span><span class="brand-dim">3D</span></span></a>
+      <div class="header-right"><span class="edition">CLASSIC GAME. NEW DIMENSION.</span><button id="sound-button" class="icon-button" aria-label="开启音效" title="开启音效" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path class="sound-wave" d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/><path class="sound-off" d="m16 9 5 6m0-6-5 6"/></svg></button><button id="help-button" class="icon-button" aria-label="查看玩法" title="查看玩法"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 8.5a2.5 2.5 0 0 1 4.8 1c0 1.7-2.4 1.8-2.4 3.5m0 3v.1"/></svg></button></div>
+    </header>
+
+    <main>
+      <div class="page-intro"><div><div class="eyebrow"><span></span> THE ARCADE, REIMAGINED</div><h1>经典玩法，<span>换个维度。</span></h1><p>转弯、吞噬、变长。让每一次出发，都比上一次更远。</p></div><div class="intro-tag"><span class="status-dot"></span> 即刻开玩<span class="tag-divider"></span>无须下载</div></div>
+
+      <div class="game-layout">
+        <section class="arena" aria-label="3D 贪吃蛇游戏">
+          <div class="arena-top"><span class="arena-title"><span class="live-dot"></span> NEON ARENA <span class="arena-number">/ 01</span></span><span id="state-badge" class="state-badge">准备就绪</span></div>
+          <div class="in-game-hud"><div><span class="micro-label">本局得分</span><strong id="score" aria-live="polite" aria-atomic="true">000</strong></div><div class="hud-right"><span class="micro-label">蛇身长度</span><span id="length-value">06<span class="hud-unit">格</span></span></div></div>
+          <div id="scene" tabindex="0" role="application" aria-label="3D 棋盘。方向键或 WASD 移动，空格暂停，R 重新开始。"></div>
+          <div class="arena-vignette" aria-hidden="true"></div>
+          <div class="scene-corner corner-tl" aria-hidden="true"></div><div class="scene-corner corner-tr" aria-hidden="true"></div><div class="scene-corner corner-bl" aria-hidden="true"></div><div class="scene-corner corner-br" aria-hidden="true"></div>
+          <div id="game-overlay" class="game-overlay"><div class="overlay-inner"><div id="overlay-kicker" class="overlay-kicker">READY WHEN YOU ARE</div><h2 id="overlay-title">来一局？</h2><p id="overlay-description">收集能量，保持前进。</p><button id="play-button" class="primary-button"><span id="play-label">开始游戏</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 6 6-6 6"/></svg></button><span id="overlay-hint" class="overlay-hint">或按 <kbd>空格</kbd> 开始</span></div></div>
+          <div class="arena-bottom"><span><i class="legend-dot"></i> 18 × 18 <span class="muted">GRID</span></span><button id="camera-button" class="view-button" aria-label="切换为俯视视角" title="切换视角"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m10 2 8 4.5v7L10 18l-8-4.5v-7L10 2Zm0 9L2 6.5m8 4.5 8-4.5M10 11v7"/></svg><span id="camera-label">立体视角</span><svg class="swap-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 6h12m-3-3 3 3-3 3M16 14H4m3-3-3 3 3 3"/></svg></button></div>
+        </section>
+
+        <div class="touch-controls" aria-label="触屏方向控制"><button data-direction="left" aria-label="向左">←</button><div><button data-direction="up" aria-label="向上">↑</button><button data-direction="down" aria-label="向下">↓</button></div><button data-direction="right" aria-label="向右">→</button></div>
+        <aside class="sidebar">
+          <section class="record-card"><div class="card-heading"><span>个人最佳</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3h8v6a4 4 0 0 1-8 0V3Zm0 2H4v3a4 4 0 0 0 4 4m8-7h4v3a4 4 0 0 1-4 4m-4 1v6m-4 2h8"/></svg></div><div class="record-number"><span id="best-score">000</span><span>分</span></div><div class="record-caption"><span class="small-line"></span><span id="record-caption">下一次，刷新自己。</span></div></section>
+
+          <section class="settings-card"><div class="section-label">选择节奏 <span>PACE</span></div><div class="difficulty-selector" role="group" aria-label="选择游戏难度"><button data-difficulty="relaxed" aria-pressed="false">悠闲</button><button data-difficulty="classic" class="selected" aria-pressed="true">经典</button><button data-difficulty="fast" aria-pressed="false">极速</button></div><div class="pace-note"><span id="pace-bars" class="pace-bars"><i></i><i></i><i></i><i></i><i></i></span><span id="pace-note">刚刚好的挑战</span></div><div class="side-rule"></div><div class="section-label">游戏控制 <span>CONTROLS</span></div><div class="control-row"><div class="arrow-keys" aria-hidden="true"><kbd>↑</kbd><div><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd></div></div><div class="control-text"><span>控制方向</span><small>方向键 / WASD</small></div></div><div class="shortcut-row"><kbd>SPACE</kbd><span>暂停 / 继续</span></div><div class="shortcut-row"><kbd>R</kbd><span>重新开始</span></div></section>
+
+          <section class="tip-card"><span class="tip-icon">✳</span><div><h3>多一点耐心，多一点长度。</h3><p>每颗能量 +10 分。<br>避开边界，也别撞到自己。</p></div></section>
+          <div class="action-row"><button id="pause-button" class="secondary-button" disabled><svg id="pause-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4v12M13 4v12"/></svg><span>暂停</span></button><button id="restart-button" class="secondary-button"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 8a6.5 6.5 0 1 1 1 7M4 3v5h5"/></svg><span>重开</span></button></div>
+        </aside>
+      </div>
+
+      <footer><span><i></i> 小游戏，大专注。</span><span>BUILT FOR THE LOVE OF PLAY <span class="footer-cross">↗</span></span></footer>
+    </main>
+  </div>
+
+  <dialog id="help-dialog"><div class="dialog-header"><span class="eyebrow">HOW TO PLAY</span><button id="close-help" class="icon-button" aria-label="关闭玩法说明">×</button></div><h2>简单上手，一直想玩。</h2><p>用方向键或 WASD 控制小蛇，收集橙色能量，每颗获得 10 分，身体也会变长。撞到边界或自己，本局就结束了。</p><p>空格键暂停或继续，R 键重新开始。点击棋盘下方的视角按钮，可以切换立体与俯视视角；游戏中无法直接反向掉头。</p><p>手机上可以在棋盘滑动，或使用下方方向按钮。离开页面时，游戏会自动暂停。最高分保存在当前浏览器。</p><button id="help-done" class="primary-button">明白了，开玩</button></dialog>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
